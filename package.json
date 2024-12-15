@@ -1,7 +1,7 @@
 {
-  "name": "@luwio/routing",
+  "name": "@luwio/internationalization",
   "version": "0.0.1",
-  "description": "Router for all React application powered by Luwio",
+  "description": "Internationalization for all React application powered by Luwio",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "exports": {
@@ -17,6 +17,9 @@
     "prettify": "pnpm exec prettier --write src/.",
     "build-github": "pnpm run prettify && pnpm exec tsc --noEmit && pnpm run build",
     "build": "pnpm run prettify && pnpm exec tsup",
+    "release:patch": "pnpm run build && pnpm version patch",
+    "release:minor": "pnpm run build && pnpm version minor",
+    "release:major": "pnpm run build && pnpm version major",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "engines": {
@@ -30,16 +33,19 @@
     "@types/jest": "^29.5.13",
     "@types/react": "^19.0",
     "jest": "^29.7.0",
+    "prettier": "^3.3.3",
     "ts-jest": "^29.2.5",
-    "tsup": "^8.2.4",
-    "prettier": "^3.3.3"
+    "tsup": "^8.2.4"
   },
   "peerDependencies": {
     "react": ">= 19"
   },
   "dependencies": {
+    "@lingui/core": "^5.1.0",
+    "@lingui/react": "^5.1.0",
     "react": "^19",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
-  }
+  },
+  "packageManager": "pnpm@9.14.4+sha512.c8180b3fbe4e4bca02c94234717896b5529740a6cbadf19fa78254270403ea2f27d4e1d46a08a0f56c89b63dc8ebfd3ee53326da720273794e6200fcf0d184ab"
 }
