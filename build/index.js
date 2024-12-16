@@ -1,4 +1,4 @@
-import { createContext, useMemo, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { jsx } from 'react/jsx-runtime';
@@ -45,13 +45,11 @@ var LuwioInternationalization = _LuwioInternationalization;
 var InternationalizationContext = createContext(void 0);
 var InternationalizationProvider = /* @__PURE__ */ __name((props) => {
   const { children, initialLanguage, loadMessages } = props;
-  const Internationalization = useMemo(() => {
-    return new LuwioInternationalization({
-      i18n,
-      load: loadMessages,
-      initialLanguage
-    });
-  }, [loadMessages]);
+  const Internationalization = new LuwioInternationalization({
+    i18n,
+    load: loadMessages,
+    initialLanguage
+  });
   console.log(Internationalization);
   return /* @__PURE__ */ jsx(InternationalizationContext.Provider, { value: Internationalization, children: Internationalization.getProvider({ children }) });
 }, "InternationalizationProvider");

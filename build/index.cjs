@@ -47,13 +47,11 @@ var LuwioInternationalization = _LuwioInternationalization;
 var InternationalizationContext = react.createContext(void 0);
 var InternationalizationProvider = /* @__PURE__ */ __name((props) => {
   const { children, initialLanguage, loadMessages } = props;
-  const Internationalization = react.useMemo(() => {
-    return new LuwioInternationalization({
-      i18n: core.i18n,
-      load: loadMessages,
-      initialLanguage
-    });
-  }, [loadMessages]);
+  const Internationalization = new LuwioInternationalization({
+    i18n: core.i18n,
+    load: loadMessages,
+    initialLanguage
+  });
   console.log(Internationalization);
   return /* @__PURE__ */ jsxRuntime.jsx(InternationalizationContext.Provider, { value: Internationalization, children: Internationalization.getProvider({ children }) });
 }, "InternationalizationProvider");

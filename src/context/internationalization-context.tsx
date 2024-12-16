@@ -19,13 +19,11 @@ export const InternationalizationProvider: FC<InternationalizationProps> = (
   const { children, initialLanguage, loadMessages } = props;
 
   // Create Internationalization instance
-  const Internationalization = useMemo(() => {
-    return new LuwioInternationalization({
-      i18n: i18n,
-      load: loadMessages,
-      initialLanguage: initialLanguage,
-    });
-  }, [loadMessages]);
+  const Internationalization = new LuwioInternationalization({
+    i18n: i18n,
+    load: loadMessages,
+    initialLanguage: initialLanguage,
+  });
 
   console.log(Internationalization);
 
