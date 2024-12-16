@@ -54,25 +54,7 @@ var InternationalizationProvider = /* @__PURE__ */ __name((props) => {
   return /* @__PURE__ */ jsx(InternationalizationContext.Provider, { value: Internationalization, children: Internationalization.getProvider({ children }) });
 }, "InternationalizationProvider");
 
-// src/hooks/use-translate.ts
-var useTranslate = /* @__PURE__ */ __name(() => {
-  const context = useContext(InternationalizationContext);
-  if (!context) {
-    throw new Error(
-      "useTranslate must be used within a InternationalizationProvider"
-    );
-  }
-  return context.t;
-}, "useTranslate");
-var useLanguage = /* @__PURE__ */ __name(() => {
-  const context = useContext(InternationalizationContext);
-  if (!context) {
-    throw new Error(
-      "useTranslate must be used within a InternationalizationProvider"
-    );
-  }
-  return context.current();
-}, "useLanguage");
+// src/hooks/use-internationalization.ts
 var useInternationalization = /* @__PURE__ */ __name(() => {
   const context = useContext(InternationalizationContext);
   if (!context) {
@@ -82,7 +64,42 @@ var useInternationalization = /* @__PURE__ */ __name(() => {
   }
   return context;
 }, "useInternationalization");
+var LanguageDetectionDefault = {
+  detectedLanguage: "en"
+};
+var LanguageDetectionContext = createContext(LanguageDetectionDefault);
+var LanguageDetectionProvider = /* @__PURE__ */ __name((props) => {
+  const { children, fallbackLanguage, detectLanguage } = props;
+  return /* @__PURE__ */ jsx(
+    LanguageDetectionContext.Provider,
+    {
+      value: {
+        detectedLanguage: detectLanguage(fallbackLanguage)
+      },
+      children
+    }
+  );
+}, "LanguageDetectionProvider");
+var detectLanguageFromUrl = /* @__PURE__ */ __name((fallback) => {
+  const url = new URL(window.location.href);
+  const pathname = url.pathname;
+  const code = pathname.split("/")[1];
+  if (code.length !== 2) {
+    return fallback;
+  }
+  if (!/^[a-zA-Z]{2}$/.test(code)) {
+    return fallback;
+  }
+  if (code.toLowerCase() !== code) {
+    return fallback;
+  }
+  return code;
+}, "detectLanguageFromUrl");
+var useLanguageDetection = /* @__PURE__ */ __name(() => {
+  const context = useContext(LanguageDetectionContext);
+  return context.detectedLanguage;
+}, "useLanguageDetection");
 
-export { InternationalizationProvider, LuwioInternationalization, useInternationalization, useLanguage, useTranslate };
+export { InternationalizationProvider, LanguageDetectionProvider, LuwioInternationalization, detectLanguageFromUrl, useInternationalization, useLanguageDetection };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

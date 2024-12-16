@@ -1,10 +1,6 @@
 import React, { PropsWithChildren, JSX, FC } from 'react';
 import { I18n } from '@lingui/core';
 
-declare const useTranslate: () => ((key: string) => string);
-
-declare const useLanguage: () => string;
-
 interface LuwioInternationalizationI {
     getProvider({ children }: PropsWithChildren): JSX.Element;
     change(language: string, messages: Record<string, string>): void;
@@ -40,4 +36,13 @@ declare class LuwioInternationalization implements LuwioInternationalizationI {
     getProvider({ children }: PropsWithChildren): React.JSX.Element;
 }
 
-export { type InternationalizationConfigI, type InternationalizationProps, InternationalizationProvider, LuwioInternationalization, type LuwioInternationalizationI, useInternationalization, useLanguage, useTranslate };
+interface LanguageDetectionProviderProps extends PropsWithChildren {
+    detectLanguage: (fallback: string) => string;
+    fallbackLanguage: string;
+}
+declare const LanguageDetectionProvider: FC<LanguageDetectionProviderProps>;
+declare const detectLanguageFromUrl: (fallback: string) => string;
+
+declare const useLanguageDetection: () => string;
+
+export { type InternationalizationConfigI, type InternationalizationProps, InternationalizationProvider, LanguageDetectionProvider, type LanguageDetectionProviderProps, LuwioInternationalization, type LuwioInternationalizationI, detectLanguageFromUrl, useInternationalization, useLanguageDetection };

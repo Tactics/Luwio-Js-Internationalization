@@ -1,6 +1,6 @@
 {
   "name": "@luwio/internationalization",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Internationalization for all React application powered by Luwio",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
