@@ -18,7 +18,9 @@ var _LuwioInternationalization = class _LuwioInternationalization {
     return this._internationalization.locale;
   }
   change(language) {
+    console.log(`Changing language to ${language}`);
     this.load(language).then((messages) => {
+      console.log(`Loaded messages for ${language}:`, messages);
       this._internationalization.load(language, messages);
       this._internationalization.activate(language);
     }).catch((error) => {
@@ -50,6 +52,7 @@ var InternationalizationProvider = /* @__PURE__ */ __name((props) => {
       initialLanguage
     });
   }, [loadMessages]);
+  console.log(Internationalization);
   return /* @__PURE__ */ jsx(InternationalizationContext.Provider, { value: Internationalization, children: Internationalization.getProvider({ children }) });
 }, "InternationalizationProvider");
 

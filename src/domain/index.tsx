@@ -25,8 +25,11 @@ export class LuwioInternationalization implements LuwioInternationalizationI {
   }
 
   change(language: string) {
+    console.log(`Changing language to ${language}`);
+
     this.load(language)
       .then((messages) => {
+        console.log(`Loaded messages for ${language}:`, messages);
         this._internationalization.load(language, messages);
         this._internationalization.activate(language);
       })

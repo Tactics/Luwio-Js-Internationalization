@@ -27,6 +27,8 @@ export const InternationalizationProvider: FC<InternationalizationProps> = (
     });
   }, [loadMessages]);
 
+  console.log(Internationalization);
+
   // Provide the context and the children
   return (
     <InternationalizationContext.Provider value={Internationalization}>

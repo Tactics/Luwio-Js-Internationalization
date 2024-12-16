@@ -1,6 +1,6 @@
 {
   "name": "@luwio/internationalization",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Internationalization for all React application powered by Luwio",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -17,9 +17,9 @@
     "prettify": "pnpm exec prettier --write src/.",
     "build-github": "pnpm run prettify && pnpm exec tsc --noEmit && pnpm run build",
     "build": "pnpm run prettify && pnpm exec tsup",
-    "release:patch": "pnpm run build && pnpm version patch",
-    "release:minor": "pnpm run build && pnpm version minor",
-    "release:major": "pnpm run build && pnpm version major",
+    "release:patch": "pnpm run build && pnpm version patch --git-tag-version=false",
+    "release:minor": "pnpm run build && pnpm version minor --git-tag-version=false",
+    "release:major": "pnpm run build && pnpm version major --git-tag-version=false",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "engines": {
