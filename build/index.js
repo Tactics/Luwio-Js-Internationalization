@@ -2,29 +2,33 @@ import { createContext, useContext } from 'react';
 import { i18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { jsx } from 'react/jsx-runtime';
+import Logger from 'js-logger';
 
 var __defProp = Object.defineProperty;
 var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 var _LuwioInternationalization = class _LuwioInternationalization {
-  constructor(config) {
+  constructor(config, logger) {
     this.load = /* @__PURE__ */ __name(async (language) => {
       return await this._load(language);
     }, "load");
     this._internationalization = config.i18n;
     this._load = config.load;
     this.change(config.initialLanguage);
+    this._logger = logger;
   }
   current() {
     return this._internationalization.locale;
   }
   change(language) {
-    console.log(`Changing language to ${language}`);
+    this._logger.info(`Changing language to ${language}`);
     this.load(language).then((messages) => {
-      console.log(`Loaded messages for ${language}:`, messages);
+      this._logger.info(`Changing language to ${language}`);
+      this._logger.info(messages);
       this._internationalization.load(language, messages);
       this._internationalization.activate(language);
     }).catch((error) => {
-      console.error(`Failed to change language to ${language}:`, error);
+      this._logger.error(`Failed to change language to ${language}`);
+      this._logger.error(error);
     });
   }
   t(key) {
@@ -42,15 +46,23 @@ var _LuwioInternationalization = class _LuwioInternationalization {
 };
 __name(_LuwioInternationalization, "LuwioInternationalization");
 var LuwioInternationalization = _LuwioInternationalization;
+var InternationalizationLogger = Logger.get("Internationalization");
+InternationalizationLogger.setLevel(Logger.OFF);
+function enableInternationalizationLogger() {
+  InternationalizationLogger.setLevel(Logger.TRACE);
+}
+__name(enableInternationalizationLogger, "enableInternationalizationLogger");
 var InternationalizationContext = createContext(void 0);
 var InternationalizationProvider = /* @__PURE__ */ __name((props) => {
   const { children, initialLanguage, loadMessages } = props;
-  const Internationalization = new LuwioInternationalization({
-    i18n,
-    load: loadMessages,
-    initialLanguage
-  });
-  console.log(Internationalization);
+  const Internationalization = new LuwioInternationalization(
+    {
+      i18n,
+      load: loadMessages,
+      initialLanguage
+    },
+    InternationalizationLogger
+  );
   return /* @__PURE__ */ jsx(InternationalizationContext.Provider, { value: Internationalization, children: Internationalization.getProvider({ children }) });
 }, "InternationalizationProvider");
 
@@ -85,12 +97,30 @@ var detectLanguageFromUrl = /* @__PURE__ */ __name((fallback) => {
   const pathname = url.pathname;
   const code = pathname.split("/")[1];
   if (code.length !== 2) {
+    InternationalizationLogger.warn(
+      `Invalid length of language code detected from url: ${code}`
+    );
+    InternationalizationLogger.info(
+      `fallback detected language to ${fallback}`
+    );
     return fallback;
   }
   if (!/^[a-zA-Z]{2}$/.test(code)) {
+    InternationalizationLogger.warn(
+      `Invalid language code detected from url: ${code}`
+    );
+    InternationalizationLogger.info(
+      `fallback detected language to ${fallback}`
+    );
     return fallback;
   }
   if (code.toLowerCase() !== code) {
+    InternationalizationLogger.warn(
+      `Invalid language code containing uppercase values detected from url: ${code}`
+    );
+    InternationalizationLogger.info(
+      `fallback detected language to ${fallback}`
+    );
     return fallback;
   }
   return code;
@@ -100,6 +130,6 @@ var useLanguageDetection = /* @__PURE__ */ __name(() => {
   return context.detectedLanguage;
 }, "useLanguageDetection");
 
-export { InternationalizationProvider, LanguageDetectionProvider, LuwioInternationalization, detectLanguageFromUrl, useInternationalization, useLanguageDetection };
+export { InternationalizationProvider, LanguageDetectionProvider, LuwioInternationalization, detectLanguageFromUrl, enableInternationalizationLogger, useInternationalization, useLanguageDetection };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

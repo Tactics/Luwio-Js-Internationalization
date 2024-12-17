@@ -2,6 +2,7 @@ import { i18n } from "@lingui/core";
 import React, { createContext, FC, PropsWithChildren, useMemo } from "react";
 import { LuwioInternationalizationI } from "@/contracts";
 import { LuwioInternationalization } from "@/domain";
+import { InternationalizationLogger } from "@/logger";
 
 // Context to provide the internationalization object
 export const InternationalizationContext = createContext<
@@ -19,13 +20,14 @@ export const InternationalizationProvider: FC<InternationalizationProps> = (
   const { children, initialLanguage, loadMessages } = props;
 
   // Create Internationalization instance
-  const Internationalization = new LuwioInternationalization({
-    i18n: i18n,
-    load: loadMessages,
-    initialLanguage: initialLanguage,
-  });
-
-  console.log(Internationalization);
+  const Internationalization = new LuwioInternationalization(
+    {
+      i18n: i18n,
+      load: loadMessages,
+      initialLanguage: initialLanguage,
+    },
+    InternationalizationLogger,
+  );
 
   // Provide the context and the children
   return (

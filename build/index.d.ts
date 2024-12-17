@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, JSX, FC } from 'react';
 import { I18n } from '@lingui/core';
+import { ILogger } from 'js-logger';
 
 interface LuwioInternationalizationI {
     getProvider({ children }: PropsWithChildren): JSX.Element;
@@ -26,7 +27,8 @@ declare const InternationalizationProvider: FC<InternationalizationProps>;
 declare class LuwioInternationalization implements LuwioInternationalizationI {
     private readonly _internationalization;
     private readonly _load;
-    constructor(config: InternationalizationConfigI);
+    private readonly _logger;
+    constructor(config: InternationalizationConfigI, logger: ILogger);
     private load;
     current(): string;
     change(language: string): void;
@@ -45,4 +47,6 @@ declare const detectLanguageFromUrl: (fallback: string) => string;
 
 declare const useLanguageDetection: () => string;
 
-export { type InternationalizationConfigI, type InternationalizationProps, InternationalizationProvider, LanguageDetectionProvider, type LanguageDetectionProviderProps, LuwioInternationalization, type LuwioInternationalizationI, detectLanguageFromUrl, useInternationalization, useLanguageDetection };
+declare function enableInternationalizationLogger(): void;
+
+export { type InternationalizationConfigI, type InternationalizationProps, InternationalizationProvider, LanguageDetectionProvider, type LanguageDetectionProviderProps, LuwioInternationalization, type LuwioInternationalizationI, detectLanguageFromUrl, enableInternationalizationLogger, useInternationalization, useLanguageDetection };

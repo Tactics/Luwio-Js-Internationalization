@@ -1,6 +1,6 @@
 {
   "name": "@luwio/internationalization",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Internationalization for all React application powered by Luwio",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
@@ -43,6 +43,7 @@
   "dependencies": {
     "@lingui/core": "^5.1.0",
     "@lingui/react": "^5.1.0",
+    "js-logger": "^1.6.1",
     "react": "^19",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"

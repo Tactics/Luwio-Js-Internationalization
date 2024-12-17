@@ -1,4 +1,5 @@
 import { createContext, FC, PropsWithChildren } from "react";
+import { InternationalizationLogger } from "@/logger";
 
 export interface LanguageDetectionContextType {
   detectedLanguage: string;
@@ -39,14 +40,32 @@ export const detectLanguageFromUrl = (fallback: string): string => {
   const code = pathname.split("/")[1];
 
   if (code.length !== 2) {
+    InternationalizationLogger.warn(
+      `Invalid length of language code detected from url: ${code}`,
+    );
+    InternationalizationLogger.info(
+      `fallback detected language to ${fallback}`,
+    );
     return fallback;
   }
 
   if (!/^[a-zA-Z]{2}$/.test(code)) {
+    InternationalizationLogger.warn(
+      `Invalid language code detected from url: ${code}`,
+    );
+    InternationalizationLogger.info(
+      `fallback detected language to ${fallback}`,
+    );
     return fallback;
   }
 
   if (code.toLowerCase() !== code) {
+    InternationalizationLogger.warn(
+      `Invalid language code containing uppercase values detected from url: ${code}`,
+    );
+    InternationalizationLogger.info(
+      `fallback detected language to ${fallback}`,
+    );
     return fallback;
   }
 

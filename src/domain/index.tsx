@@ -5,15 +5,18 @@ import {
 import React, { PropsWithChildren } from "react";
 import { I18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
+import { GlobalLogger, ILogger } from "js-logger";
 
 export class LuwioInternationalization implements LuwioInternationalizationI {
   private readonly _internationalization: I18n;
   private readonly _load: (language: string) => Promise<Record<string, string>>;
+  private readonly _logger: ILogger;
 
-  constructor(config: InternationalizationConfigI) {
+  constructor(config: InternationalizationConfigI, logger: ILogger) {
     this._internationalization = config.i18n;
     this._load = config.load;
     this.change(config.initialLanguage);
+    this._logger = logger;
   }
 
   private load = async (language: string) => {
@@ -25,16 +28,19 @@ export class LuwioInternationalization implements LuwioInternationalizationI {
   }
 
   change(language: string) {
-    console.log(`Changing language to ${language}`);
+    this._logger.info(`Changing language to ${language}`);
 
     this.load(language)
       .then((messages) => {
-        console.log(`Loaded messages for ${language}:`, messages);
+        this._logger.info(`Changing language to ${language}`);
+        this._logger.info(messages);
+
         this._internationalization.load(language, messages);
         this._internationalization.activate(language);
       })
       .catch((error) => {
-        console.error(`Failed to change language to ${language}:`, error);
+        this._logger.error(`Failed to change language to ${language}`);
+        this._logger.error(error);
       });
   }
 
