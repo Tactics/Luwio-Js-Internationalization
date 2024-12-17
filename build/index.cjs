@@ -60,11 +60,13 @@ Logger__default.default.useDefaults({
   }, "formatter")
 });
 var InternationalizationLogger = Logger__default.default.get("Internationalization");
-InternationalizationLogger.setLevel(Logger__default.default.OFF);
+InternationalizationLogger.setLevel(Logger__default.default.TRACE);
 function enableInternationalizationLogger() {
   InternationalizationLogger.setLevel(Logger__default.default.TRACE);
 }
 __name(enableInternationalizationLogger, "enableInternationalizationLogger");
+core.i18n.load("empty", {});
+core.i18n.activate("empty");
 var InternationalizationContext = react.createContext(void 0);
 var InternationalizationProvider = /* @__PURE__ */ __name((props) => {
   const { children, initialLanguage, loadMessages } = props;
