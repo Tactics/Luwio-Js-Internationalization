@@ -65,8 +65,6 @@ function enableInternationalizationLogger() {
   InternationalizationLogger.setLevel(Logger__default.default.TRACE);
 }
 __name(enableInternationalizationLogger, "enableInternationalizationLogger");
-core.i18n.load("empty", {});
-core.i18n.activate("empty");
 var InternationalizationContext = react.createContext(void 0);
 var InternationalizationProvider = /* @__PURE__ */ __name((props) => {
   const { children, initialLanguage, loadMessages } = props;

@@ -59,8 +59,6 @@ function enableInternationalizationLogger() {
   InternationalizationLogger.setLevel(Logger.TRACE);
 }
 __name(enableInternationalizationLogger, "enableInternationalizationLogger");
-i18n.load("empty", {});
-i18n.activate("empty");
 var InternationalizationContext = createContext(void 0);
 var InternationalizationProvider = /* @__PURE__ */ __name((props) => {
   const { children, initialLanguage, loadMessages } = props;

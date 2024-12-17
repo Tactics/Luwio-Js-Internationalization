@@ -5,7 +5,7 @@ import {
 import React, { PropsWithChildren } from "react";
 import { I18n } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
-import { GlobalLogger, ILogger } from "js-logger";
+import { ILogger } from "js-logger";
 
 export class LuwioInternationalization implements LuwioInternationalizationI {
   private readonly _internationalization: I18n;

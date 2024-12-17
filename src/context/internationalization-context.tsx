@@ -4,10 +4,6 @@ import { LuwioInternationalizationI } from "@/contracts";
 import { LuwioInternationalization } from "@/domain";
 import { InternationalizationLogger } from "@/logger";
 
-// Load a default empty catalog.
-i18n.load("empty", {});
-i18n.activate("empty");
-
 // Context to provide the internationalization object
 export const InternationalizationContext = createContext<
   LuwioInternationalizationI | undefined
