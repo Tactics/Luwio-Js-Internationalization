@@ -52,6 +52,13 @@ var _LuwioInternationalization = class _LuwioInternationalization {
 };
 __name(_LuwioInternationalization, "LuwioInternationalization");
 var LuwioInternationalization = _LuwioInternationalization;
+Logger__default.default.useDefaults({
+  defaultLevel: Logger__default.default.TRACE,
+  formatter: /* @__PURE__ */ __name(function(messages, context) {
+    messages.unshift((/* @__PURE__ */ new Date()).toUTCString());
+    messages.unshift("Internationalization");
+  }, "formatter")
+});
 var InternationalizationLogger = Logger__default.default.get("Internationalization");
 InternationalizationLogger.setLevel(Logger__default.default.OFF);
 function enableInternationalizationLogger() {
