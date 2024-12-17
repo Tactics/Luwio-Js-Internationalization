@@ -13,10 +13,11 @@ export class LuwioInternationalization implements LuwioInternationalizationI {
   private readonly _logger: ILogger;
 
   constructor(config: InternationalizationConfigI, logger: ILogger) {
+    this._logger = logger;
     this._internationalization = config.i18n;
     this._load = config.load;
+
     this.change(config.initialLanguage);
-    this._logger = logger;
   }
 
   private load = async (language: string) => {

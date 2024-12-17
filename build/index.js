@@ -11,10 +11,10 @@ var _LuwioInternationalization = class _LuwioInternationalization {
     this.load = /* @__PURE__ */ __name(async (language) => {
       return await this._load(language);
     }, "load");
+    this._logger = logger;
     this._internationalization = config.i18n;
     this._load = config.load;
     this.change(config.initialLanguage);
-    this._logger = logger;
   }
   current() {
     return this._internationalization.locale;
