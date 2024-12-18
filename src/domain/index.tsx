@@ -31,6 +31,12 @@ export class LuwioInternationalization implements LuwioInternationalizationI {
   change(language: string) {
     this._logger.info(`Changing language to ${language}`);
 
+    // Check if the language is already loaded
+    if (this.current() === language) {
+      this._logger.info(`Language is already ${language}`);
+      return;
+    }
+
     this.load(language)
       .then((messages) => {
         this._logger.info(`Changing language to ${language}`);

@@ -27,6 +27,10 @@ var _LuwioInternationalization = class _LuwioInternationalization {
   }
   change(language) {
     this._logger.info(`Changing language to ${language}`);
+    if (this.current() === language) {
+      this._logger.info(`Language is already ${language}`);
+      return;
+    }
     this.load(language).then((messages) => {
       this._logger.info(`Changing language to ${language}`);
       this._logger.info(messages);
