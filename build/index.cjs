@@ -64,7 +64,7 @@ Logger__default.default.useDefaults({
   }, "formatter")
 });
 var InternationalizationLogger = Logger__default.default.get("Internationalization");
-InternationalizationLogger.setLevel(Logger__default.default.TRACE);
+InternationalizationLogger.setLevel(Logger__default.default.OFF);
 function enableInternationalizationLogger() {
   InternationalizationLogger.setLevel(Logger__default.default.TRACE);
 }

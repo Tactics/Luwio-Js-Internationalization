@@ -10,7 +10,7 @@ Logger.useDefaults({
 });
 
 export const InternationalizationLogger = Logger.get("Internationalization");
-InternationalizationLogger.setLevel(Logger.TRACE);
+InternationalizationLogger.setLevel(Logger.OFF);
 
 export function enableInternationalizationLogger() {
   InternationalizationLogger.setLevel(Logger.TRACE);
