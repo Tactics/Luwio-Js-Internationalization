@@ -1,4 +1,4 @@
-import { i18n } from "@lingui/core";
+import { I18n } from "@lingui/core";
 import React, { createContext, FC, PropsWithChildren, useMemo } from "react";
 import { LuwioInternationalizationI } from "@/contracts";
 import { LuwioInternationalization } from "@/domain";
@@ -18,6 +18,12 @@ export const InternationalizationProvider: FC<InternationalizationProps> = (
   props: InternationalizationProps,
 ) => {
   const { children, initialLanguage, loadMessages } = props;
+
+  const i18n = new I18n({
+    missing: (locale, key) => {
+      return `MISSING TRANSLATION: ${key} in ${locale}`;
+    },
+  });
 
   // Create Internationalization instance
   const Internationalization = new LuwioInternationalization(

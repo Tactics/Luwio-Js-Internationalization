@@ -32,7 +32,7 @@ declare class LuwioInternationalization implements LuwioInternationalizationI {
     private load;
     current(): string;
     change(language: string): void;
-    t(key: string): string;
+    t(key: string, variables?: Record<string, unknown>): string;
     tdate(value: Date, format?: Intl.DateTimeFormatOptions): string;
     tnumber(value: number, format?: Intl.DateTimeFormatOptions): string;
     getProvider({ children }: PropsWithChildren): React.JSX.Element;

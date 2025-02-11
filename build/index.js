@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { i18n } from '@lingui/core';
+import { I18n } from '@lingui/core';
 import { I18nProvider } from '@lingui/react';
 import { jsx } from 'react/jsx-runtime';
 import Logger from 'js-logger';
@@ -35,8 +35,8 @@ var _LuwioInternationalization = class _LuwioInternationalization {
       this._logger.error(error);
     });
   }
-  t(key) {
-    return this._internationalization._(key);
+  t(key, variables) {
+    return this._internationalization._(key, variables);
   }
   tdate(value, format) {
     return this._internationalization.date(value, format);
@@ -66,6 +66,11 @@ __name(enableInternationalizationLogger, "enableInternationalizationLogger");
 var InternationalizationContext = createContext(void 0);
 var InternationalizationProvider = /* @__PURE__ */ __name((props) => {
   const { children, initialLanguage, loadMessages } = props;
+  const i18n = new I18n({
+    missing: /* @__PURE__ */ __name((locale, key) => {
+      return `MISSING TRANSLATION: ${key} in ${locale}`;
+    }, "missing")
+  });
   const Internationalization = new LuwioInternationalization(
     {
       i18n,

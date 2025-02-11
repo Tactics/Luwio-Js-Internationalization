@@ -51,8 +51,8 @@ export class LuwioInternationalization implements LuwioInternationalizationI {
       });
   }
 
-  t(key: string) {
-    return this._internationalization._(key);
+  t(key: string, variables?: Record<string, unknown>) {
+    return this._internationalization._(key, variables);
   }
 
   tdate(value: Date, format?: Intl.DateTimeFormatOptions) {
