@@ -3,9 +3,24 @@ import {
   LuwioInternationalizationI,
 } from "@/contracts";
 import React, { PropsWithChildren } from "react";
-import { I18n } from "@lingui/core";
+import { I18n, Messages } from "@lingui/core";
 import { I18nProvider } from "@lingui/react";
 import { ILogger } from "js-logger";
+import {
+  compileMessage,
+  CompiledMessage,
+} from "@lingui/message-utils/compileMessage";
+
+function toCompiledMessages(rawMessages: Record<string, string>): Messages {
+  const compiledMessages: Messages = {};
+
+  Object.keys(rawMessages).forEach((key) => {
+    const message = rawMessages[key];
+    compiledMessages[key] = compileMessage(message);
+  });
+
+  return compiledMessages;
+}
 
 export class LuwioInternationalization implements LuwioInternationalizationI {
   private readonly _internationalization: I18n;
@@ -42,7 +57,9 @@ export class LuwioInternationalization implements LuwioInternationalizationI {
         this._logger.info(`Changing language to ${language}`);
         this._logger.info(messages);
 
-        this._internationalization.load(language, messages);
+        // Todo: check if this give performance issues.
+        const compiledMessages = toCompiledMessages(messages);
+        this._internationalization.load(language, compiledMessages);
         this._internationalization.activate(language);
       })
       .catch((error) => {
